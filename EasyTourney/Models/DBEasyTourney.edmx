@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBEasyTourneyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBEasyTourneyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblCategory">
           <Key>
             <PropertyRef Name="Id" />
@@ -73,13 +73,13 @@
           </Key>
           <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="25" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="15" />
           <Property Name="LastName" Type="nvarchar" MaxLength="25" />
-          <Property Name="Email" Type="nvarchar" MaxLength="25" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Phone" Type="nvarchar" MaxLength="15" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="RolId" Type="uniqueidentifier" />
-          <Property Name="Pass" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="tblUserEvents">
           <Key>
@@ -269,8 +269,7 @@
             <End Role="tblUserPreference" EntitySet="tblUserPreference" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBEasyTourneyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -355,7 +354,7 @@
           <Property Name="GUID" Type="Guid" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
