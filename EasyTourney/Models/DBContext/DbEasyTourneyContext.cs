@@ -4,9 +4,14 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace EasyTourney.Models.DBContext
+namespace EasyTourney.Models
 {
-    public partial class User
+    [MetadataType(typeof(tblUserMetaData))]
+    public partial class tblUser
+    {
+    }
+
+    public class tblUserMetaData
     {
 
         [DataType(DataType.Text)]
@@ -50,6 +55,41 @@ namespace EasyTourney.Models.DBContext
         public string Country { get; set; }    
     }
 
-    
+    [MetadataType(typeof(tblEventMetaData))]
+    public partial class tblEvent
+    {        
+    }
 
+    public class tblEventMetaData
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Name")]
+        [StringLength(200, ErrorMessage = "Name cannot be longer than 200 characters.")]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Description")]
+        [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
+        public string Description { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [Display(Name = "Start date")]
+        public Nullable<System.DateTime> StarDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [Display(Name = "Created date")]
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+
+
+        public Nullable<decimal> Price { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public Nullable<int> MaxParticipants { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+
+    }
 }
