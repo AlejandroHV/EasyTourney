@@ -124,6 +124,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DBContext\DbEasyTourneyContext.cs" />
     <Compile Include="Models\DBEasyTourney.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
