@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBEasyTourneyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblEvent">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="StarDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Price" Type="money" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaxParticipants" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblEventMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="uniqueidentifier" />
+          <Property Name="MessageId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="tblEventPreferences">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PreferenceId" Type="uniqueidentifier" />
+          <Property Name="EventId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Content" Type="text" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblPreference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="tblRol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="25" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="25" />
+          <Property Name="Email" Type="nvarchar" MaxLength="25" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="RolId" Type="uniqueidentifier" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="tblUserEvents">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="EventId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="tblUserPreference">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PreferenceId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_EventMessages_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblEventMessages" Type="Self.tblEventMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventMessages">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMessages_Message">
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="0..1" />
+          <End Role="tblEventMessages" Type="Self.tblEventMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMessage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblEventMessages">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventPreferencies_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblEventPreferences" Type="Self.tblEventPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventPreferences">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventPreferencies_Preference">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblEventPreferences" Type="Self.tblEventPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventPreferences">
+              <PropertyRef Name="PreferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_Category">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblMessage">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Rol">
+          <End Role="tblRol" Type="Self.tblRol" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEvents_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblUserEvents" Type="Self.tblUserEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserEvents">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEvents_User">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUserEvents" Type="Self.tblUserEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserEvents">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreference_Preference">
+          <End Role="tblPreference" Type="Self.tblPreference" Multiplicity="0..1" />
+          <End Role="tblUserPreference" Type="Self.tblUserPreference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPreference">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserPreference">
+              <PropertyRef Name="PreferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreference_User">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUserPreference" Type="Self.tblUserPreference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserPreference">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEasyTourneyModelStoreContainer">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEvent" EntityType="Self.tblEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEventMessages" EntityType="Self.tblEventMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEventPreferences" EntityType="Self.tblEventPreferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessage" EntityType="Self.tblMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPreference" EntityType="Self.tblPreference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRol" EntityType="Self.tblRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserEvents" EntityType="Self.tblUserEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUserPreference" EntityType="Self.tblUserPreference" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EventMessages_Event" Association="Self.FK_EventMessages_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblEventMessages" EntitySet="tblEventMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMessages_Message" Association="Self.FK_EventMessages_Message">
+            <End Role="tblMessage" EntitySet="tblMessage" />
+            <End Role="tblEventMessages" EntitySet="tblEventMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPreferencies_Event" Association="Self.FK_EventPreferencies_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblEventPreferences" EntitySet="tblEventPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPreferencies_Preference" Association="Self.FK_EventPreferencies_Preference">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblEventPreferences" EntitySet="tblEventPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_Category" Association="Self.FK_Message_Category">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblMessage" EntitySet="tblMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Rol" Association="Self.FK_User_Rol">
+            <End Role="tblRol" EntitySet="tblRol" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEvents_Event" Association="Self.FK_UserEvents_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblUserEvents" EntitySet="tblUserEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEvents_User" Association="Self.FK_UserEvents_User">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblUserEvents" EntitySet="tblUserEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreference_Preference" Association="Self.FK_UserPreference_Preference">
+            <End Role="tblPreference" EntitySet="tblPreference" />
+            <End Role="tblUserPreference" EntitySet="tblUserPreference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreference_User" Association="Self.FK_UserPreference_User">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblUserPreference" EntitySet="tblUserPreference" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBEasyTourneyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblMessage" Relationship="Self.FK_Message_Category" FromRole="tblCategory" ToRole="tblMessage" />
+        </EntityType>
+        <EntityType Name="tblEvent">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StarDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaxParticipants" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tblEventMessages" Relationship="Self.FK_EventMessages_Event" FromRole="tblEvent" ToRole="tblEventMessages" />
+          <NavigationProperty Name="tblEventPreferences" Relationship="Self.FK_EventPreferencies_Event" FromRole="tblEvent" ToRole="tblEventPreferences" />
+          <NavigationProperty Name="tblUserEvents" Relationship="Self.FK_UserEvents_Event" FromRole="tblEvent" ToRole="tblUserEvents" />
+        </EntityType>
+        <EntityType Name="tblEventMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Guid" />
+          <Property Name="MessageId" Type="Guid" />
+          <NavigationProperty Name="tblEvent" Relationship="Self.FK_EventMessages_Event" FromRole="tblEventMessages" ToRole="tblEvent" />
+          <NavigationProperty Name="tblMessage" Relationship="Self.FK_EventMessages_Message" FromRole="tblEventMessages" ToRole="tblMessage" />
+        </EntityType>
+        <EntityType Name="tblEventPreferences">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="PreferenceId" Type="Guid" />
+          <Property Name="EventId" Type="Guid" />
+          <NavigationProperty Name="tblEvent" Relationship="Self.FK_EventPreferencies_Event" FromRole="tblEventPreferences" ToRole="tblEvent" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_EventPreferencies_Preference" FromRole="tblEventPreferences" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tblCategory" Relationship="Self.FK_Message_Category" FromRole="tblMessage" ToRole="tblCategory" />
+          <NavigationProperty Name="tblEventMessages" Relationship="Self.FK_EventMessages_Message" FromRole="tblMessage" ToRole="tblEventMessages" />
+        </EntityType>
+        <EntityType Name="tblPreference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblUserPreference" Relationship="Self.FK_UserPreference_Preference" FromRole="tblPreference" ToRole="tblUserPreference" />
+        </EntityType>
+        <EntityType Name="tblRol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_User_Rol" FromRole="tblRol" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RolId" Type="Guid" />
+          <Property Name="Pass" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblEventPreferences" Relationship="Self.FK_EventPreferencies_Preference" FromRole="tblUser" ToRole="tblEventPreferences" />
+          <NavigationProperty Name="tblRol" Relationship="Self.FK_User_Rol" FromRole="tblUser" ToRole="tblRol" />
+          <NavigationProperty Name="tblUserEvents" Relationship="Self.FK_UserEvents_User" FromRole="tblUser" ToRole="tblUserEvents" />
+          <NavigationProperty Name="tblUserPreference" Relationship="Self.FK_UserPreference_User" FromRole="tblUser" ToRole="tblUserPreference" />
+        </EntityType>
+        <EntityType Name="tblUserEvents">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="EventId" Type="Guid" />
+          <NavigationProperty Name="tblEvent" Relationship="Self.FK_UserEvents_Event" FromRole="tblUserEvents" ToRole="tblEvent" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_UserEvents_User" FromRole="tblUserEvents" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUserPreference">
+          <Key>
+            <PropertyRef Name="GUID" />
+          </Key>
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="PreferenceId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <NavigationProperty Name="tblPreference" Relationship="Self.FK_UserPreference_Preference" FromRole="tblUserPreference" ToRole="tblPreference" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_UserPreference_User" FromRole="tblUserPreference" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_Message_Category">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblMessage">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMessages_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblEventMessages" Type="Self.tblEventMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventMessages">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventPreferencies_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblEventPreferences" Type="Self.tblEventPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventPreferences">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEvents_Event">
+          <End Role="tblEvent" Type="Self.tblEvent" Multiplicity="0..1" />
+          <End Role="tblUserEvents" Type="Self.tblUserEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserEvents">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventMessages_Message">
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="0..1" />
+          <End Role="tblEventMessages" Type="Self.tblEventMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMessage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblEventMessages">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventPreferencies_Preference">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblEventPreferences" Type="Self.tblEventPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblEventPreferences">
+              <PropertyRef Name="PreferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreference_Preference">
+          <End Role="tblPreference" Type="Self.tblPreference" Multiplicity="0..1" />
+          <End Role="tblUserPreference" Type="Self.tblUserPreference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPreference">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUserPreference">
+              <PropertyRef Name="PreferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Rol">
+          <End Role="tblRol" Type="Self.tblRol" Multiplicity="0..1" />
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEvents_User">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUserEvents" Type="Self.tblUserEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserEvents">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreference_User">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblUserPreference" Type="Self.tblUserPreference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="GUID" />
+            </Principal>
+            <Dependent Role="tblUserPreference">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBEasyTourneyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblEvent" EntityType="Self.tblEvent" />
+          <EntitySet Name="tblEventMessages" EntityType="Self.tblEventMessages" />
+          <EntitySet Name="tblEventPreferences" EntityType="Self.tblEventPreferences" />
+          <EntitySet Name="tblMessage" EntityType="Self.tblMessage" />
+          <EntitySet Name="tblPreference" EntityType="Self.tblPreference" />
+          <EntitySet Name="tblRol" EntityType="Self.tblRol" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" />
+          <EntitySet Name="tblUserEvents" EntityType="Self.tblUserEvents" />
+          <EntitySet Name="tblUserPreference" EntityType="Self.tblUserPreference" />
+          <AssociationSet Name="FK_Message_Category" Association="Self.FK_Message_Category">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblMessage" EntitySet="tblMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMessages_Event" Association="Self.FK_EventMessages_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblEventMessages" EntitySet="tblEventMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPreferencies_Event" Association="Self.FK_EventPreferencies_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblEventPreferences" EntitySet="tblEventPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEvents_Event" Association="Self.FK_UserEvents_Event">
+            <End Role="tblEvent" EntitySet="tblEvent" />
+            <End Role="tblUserEvents" EntitySet="tblUserEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventMessages_Message" Association="Self.FK_EventMessages_Message">
+            <End Role="tblMessage" EntitySet="tblMessage" />
+            <End Role="tblEventMessages" EntitySet="tblEventMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPreferencies_Preference" Association="Self.FK_EventPreferencies_Preference">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblEventPreferences" EntitySet="tblEventPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreference_Preference" Association="Self.FK_UserPreference_Preference">
+            <End Role="tblPreference" EntitySet="tblPreference" />
+            <End Role="tblUserPreference" EntitySet="tblUserPreference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Rol" Association="Self.FK_User_Rol">
+            <End Role="tblRol" EntitySet="tblRol" />
+            <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEvents_User" Association="Self.FK_UserEvents_User">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblUserEvents" EntitySet="tblUserEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreference_User" Association="Self.FK_UserPreference_User">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblUserPreference" EntitySet="tblUserPreference" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBEasyTourneyModelStoreContainer" CdmEntityContainer="DBEasyTourneyEntities">
+          <EntitySetMapping Name="tblCategory">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEvent">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblEvent">
+              <MappingFragment StoreEntitySet="tblEvent">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StarDate" ColumnName="StarDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="MaxParticipants" ColumnName="MaxParticipants" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEventMessages">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblEventMessages">
+              <MappingFragment StoreEntitySet="tblEventMessages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEventPreferences">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblEventPreferences">
+              <MappingFragment StoreEntitySet="tblEventPreferences">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="PreferenceId" ColumnName="PreferenceId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessage">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblMessage">
+              <MappingFragment StoreEntitySet="tblMessage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPreference">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblPreference">
+              <MappingFragment StoreEntitySet="tblPreference">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRol">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblRol">
+              <MappingFragment StoreEntitySet="tblRol">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUser">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="RolId" ColumnName="RolId" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserEvents">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblUserEvents">
+              <MappingFragment StoreEntitySet="tblUserEvents">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUserPreference">
+            <EntityTypeMapping TypeName="DBEasyTourneyModel.tblUserPreference">
+              <MappingFragment StoreEntitySet="tblUserPreference">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="PreferenceId" ColumnName="PreferenceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
