@@ -149,13 +149,16 @@ namespace EasyTourney.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult RegisterForEvent(Guid userGuid, Guid eventGuid)
+        [IsParticipantFilter]
+        public ActionResult RegisterForEvent(Guid eventGuid)
         {
+            tblUser user = (tblUser)Session["USER"];
+
             RegisterForEvent registerForEvent = new RegisterForEvent
-            {
+            {                
                 selectedEvent = db.tblEvent.Find(eventGuid)
                 ,
-                userGuid = userGuid
+                userGuid = user.GUID
             };
 
             return View(registerForEvent);

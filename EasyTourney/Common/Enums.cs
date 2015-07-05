@@ -9,7 +9,7 @@ namespace EasyTourney.Common
     {
         enum Role
         {
-            
+            G
         }
     }
 }
