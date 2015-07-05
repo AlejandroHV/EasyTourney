@@ -1,4 +1,4 @@
-﻿@model EasyTourney.ViewModels.EventIndex 
+﻿@model EasyTourney.ViewModels.EventIndex
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,19 +6,23 @@
 
 
 <section id="eventInfo" class="container">
+
+    @using (Html.BeginForm("registerForEvent", "Event", null, FormMethod.Get))
+        {
+        @Html.AntiForgeryToken()
     <div class="center wow fadeInDown">
         <h2>@Model.eventInfo.Name</h2>
         <p class="lead">@Model.eventInfo.Description</p>
         <div></div>
     </div>
-    <div class= "row">
+    <div class="row">
         <div class="col-lg-5">
             <div class="row">
                 @Html.LabelFor(model => model.eventInfo.StarDate, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-5">
-                  
+
                     <p> @Model.eventInfo.StarDate.ToString()</p>
-                    
+
                 </div>
             </div>
             <div class="row">
@@ -53,20 +57,26 @@
             </div>
 
         </div>
-       
+
     </div>
     <div class="center">
         <h3>Participants List</h3>
     </div>
-    @if (Model.eventParticipants != null && Model.eventParticipants.Count >0)
+    if (Model.eventParticipants != null && Model.eventParticipants.Count > 0)
     {
-        
+
         @Html.Partial("_participantListPartial", Model.eventParticipants)
-    }else
+    }
+    else
     {
         <p>Non participants subscribed</p>
-        
     }
-    
-</section>
 
+        @Html.Hidden("eventGuid" , Model.eventInfo.GUID);
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Partcipate" class="btn btn-primary btn-lg" />
+        </div>
+    </div>
+    }
+</section>

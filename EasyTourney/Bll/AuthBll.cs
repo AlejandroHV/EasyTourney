@@ -23,6 +23,21 @@ namespace EasyTourney.Bll
             return false;
         }
 
+        public static bool isParticipant()
+        {
+            tblUser user = null;
+
+            if (HttpContext.Current.Session["USER"] != null)
+            {
+                user = (tblUser)HttpContext.Current.Session["USER"];
+
+                if (user.tblRol.Name == "Participant")
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool activeSession()
         {
             bool activeSession = HttpContext.Current.Session["USER"] != null ? true : false;
