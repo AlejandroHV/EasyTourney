@@ -69,7 +69,7 @@ namespace EasyTourney.Controllers
                     tblUser.RolId = managerRol.Id;
                 }
                 else {
-                    tblRol participantRol = rolList.Where(rol => rol.Name == "Manager").FirstOrDefault();
+                    tblRol participantRol = rolList.Where(rol => rol.Name == "Participant").FirstOrDefault();
                     tblUser.RolId = participantRol.Id;
                 }
 

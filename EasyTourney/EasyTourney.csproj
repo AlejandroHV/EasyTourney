@@ -174,6 +174,7 @@
       <DependentUpon>DBEasyTourney.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\EventIndex.cs" />
     <Compile Include="ViewModels\RegisterForEvent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +425,7 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Event\RegisterForEvent.cshtml" />
     <Content Include="Views\Event\_participantListPartial.cshtml" />
+    <Content Include="Views\Event\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
