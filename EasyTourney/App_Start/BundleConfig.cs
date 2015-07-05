@@ -26,6 +26,20 @@ namespace EasyTourney
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/BaseTemplate/css").Include(
+                      "~/Content/BaseTemplate/css/*.css"
+                      , "~/Content/BaseTemplate/css/bootstrap.min.css"
+                      , "~/Content/BaseTemplate/css/font-awesome.min.css"
+                      , "~/Content/BaseTemplate/css/animate.min.css"));
+
+            bundles.Add(new ScriptBundle("~/Content/BaseTemplate/js").Include(
+                      "~/Content/BaseTemplate/js/*.js"
+
+                      , "~/Content/BaseTemplate/js/bootstrap.min.js"
+                      , "~/Content/BaseTemplate/js/jquery.isotope.min.js"
+                      , "~/Content/BaseTemplate/js/respond.min.js"
+                      , "~/Content/BaseTemplate/js/wow.min.js"));
         }
     }
 }

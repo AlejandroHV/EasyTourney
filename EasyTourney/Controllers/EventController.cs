@@ -7,17 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using EasyTourney.Models;
+using EasyTourney.Bll;
+using EasyTourney.ViewModels;
 
 namespace EasyTourney.Controllers
 {
     public class EventController : Controller
     {
         private DBEasyTourneyEntities db = new DBEasyTourneyEntities();
+        private EventBll eventBll = new EventBll();
 
         // GET: Event
         public ActionResult Index()
         {
-            return View(db.tblEvent.ToList());
+            Guid managerGuid = Guid.NewGuid();
+            return View(eventBll.getEventsByManager(managerGuid));
         }
 
         // GET: Event/Details/5
@@ -50,8 +54,16 @@ namespace EasyTourney.Controllers
         {
             if (ModelState.IsValid)
             {
-                tblEvent.GUID = Guid.NewGuid();
+                Guid eventGuid = Guid.NewGuid();
+                tblEvent.GUID = eventGuid;
                 db.tblEvent.Add(tblEvent);
+
+                tblUserEvents userEvent = new tblUserEvents();
+                userEvent.GUID = Guid.NewGuid();
+                userEvent.EventId = eventGuid;
+                userEvent.UserId = Guid.NewGuid();
+                db.tblUserEvents.Add(userEvent);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,6 +125,35 @@ namespace EasyTourney.Controllers
             tblEvent tblEvent = db.tblEvent.Find(id);
             db.tblEvent.Remove(tblEvent);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult RegisterForEvent(Guid userGuid, Guid eventGuid)
+        {
+            RegisterForEvent registerForEvent = new RegisterForEvent
+            {
+                selectedEvent = db.tblEvent.Find(eventGuid)
+                ,
+                userGuid = userGuid
+            };
+
+            return View(registerForEvent);
+        }
+
+        [HttpPost, ActionName("RegisterForEvent")]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterForEventConfirmed(Guid userGuid, Guid eventGuid)
+        {
+            if(ModelState.IsValid)
+            {
+                tblUserEvents userEvent = new tblUserEvents();
+                userEvent.UserId = userGuid;
+                userEvent.EventId = eventGuid;
+                db.tblUserEvents.Add(userEvent);
+
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 

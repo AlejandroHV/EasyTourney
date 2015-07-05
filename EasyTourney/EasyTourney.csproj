@@ -119,6 +119,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bll\EventBll.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -171,6 +172,7 @@
       <DependentUpon>DBEasyTourney.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RegisterForEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BaseTemplate\404.html" />
@@ -228,7 +230,7 @@
     <Content Include="Content\BaseTemplate\images\ico\apple-touch-icon-72-precomposed.png" />
     <Content Include="Content\BaseTemplate\images\ico\favicon.ico" />
     <Content Include="Content\BaseTemplate\images\image_bg.png" />
-    <Content Include="Content\BaseTemplate\images\logo.png" />
+    <Content Include="Content\BaseTemplate\images\logoSmall.png" />
     <Content Include="Content\BaseTemplate\images\man1.jpg" />
     <Content Include="Content\BaseTemplate\images\man2.jpg" />
     <Content Include="Content\BaseTemplate\images\man3.jpg" />
@@ -409,6 +411,9 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Event\RegisterForEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -437,7 +442,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61050</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
