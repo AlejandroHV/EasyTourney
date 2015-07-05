@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using EasyTourney.Models;
 using EasyTourney.Bll;
 using EasyTourney.ViewModels;
+using EasyTourney.Filters;
 
 namespace EasyTourney.Controllers
 {
@@ -18,10 +19,23 @@ namespace EasyTourney.Controllers
         private EventBll eventBll = new EventBll();
 
         // GET: Event
+        [IsAdminFilter]
         public ActionResult Index()
         {
-            Guid managerGuid = Guid.NewGuid();
-            return View(eventBll.getEventsByManager(managerGuid));
+            tblUser user = null;
+
+            if (Session["USER"] != null)
+            {
+                user = (EasyTourney.Models.tblUser)Session["USER"];
+            }
+
+            if (user != null)
+            {
+                Guid managerGuid = user.GUID;
+                return View(eventBll.getEventsByManager(managerGuid));
+            }
+
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Event/Details/5
@@ -149,13 +163,13 @@ namespace EasyTourney.Controllers
 
         [HttpPost, ActionName("RegisterForEvent")]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterForEventConfirmed(Guid userGuid, Guid eventGuid)
+        public ActionResult RegisterForEventConfirmed(RegisterForEvent model)
         {
             if(ModelState.IsValid)
             {
                 tblUserEvents userEvent = new tblUserEvents();
-                userEvent.UserId = userGuid;
-                userEvent.EventId = eventGuid;
+                userEvent.UserId = model.userGuid;
+                userEvent.EventId = model.selectedEvent.GUID;
                 db.tblUserEvents.Add(userEvent);
 
                 db.SaveChanges();
