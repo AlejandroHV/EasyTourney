@@ -10,6 +10,7 @@ namespace EasyTourney.Models
     public partial class tblUser
     {
         public bool IsEventAdmin { get; set; }
+        public List<tblPreference> Preferences { get; set; }
     }
 
     public class tblUserMetaData

@@ -1,0 +1,72 @@
+﻿@model EasyTourney.ViewModels.EventIndex 
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="eventInfo" class="container">
+    <div class="center wow fadeInDown">
+        <h2>@Model.eventInfo.Name</h2>
+        <p class="lead">@Model.eventInfo.Description</p>
+        <div></div>
+    </div>
+    <div class= "row">
+        <div class="col-lg-5">
+            <div class="row">
+                @Html.LabelFor(model => model.eventInfo.StarDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                  
+                    <p> @Model.eventInfo.StarDate.ToString()</p>
+                    
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.eventInfo.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                    <p>@Model.eventInfo.Price.ToString()</p>
+
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.eventInfo.MaxParticipants, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                    <p>@Model.eventInfo.MaxParticipants.ToString()</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="row">
+                @Html.LabelFor(model => model.eventInfo.City, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <p>@Model.eventInfo.City</p>
+
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(model => model.eventInfo.Country, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    <p>@Model.eventInfo.Country</p>
+
+                </div>
+            </div>
+
+        </div>
+       
+    </div>
+    <div class="center">
+        <h3>Participants List</h3>
+    </div>
+    @if (Model.eventParticipants != null && Model.eventParticipants.Count >0)
+    {
+        
+        @Html.Partial("_participantListPartial", Model.eventParticipants)
+    }else
+    {
+        <p>Non participants subscribed</p>
+        
+    }
+    
+</section>
+

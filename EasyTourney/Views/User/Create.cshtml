@@ -73,13 +73,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsEventAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Do you want to create and manage Events?", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.CheckBoxFor(model => model.IsEventAdmin, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.IsEventAdmin, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="container">
+            <h3>Select </h3>
+
+        </div>
+        <div class="form-group">
+            
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
