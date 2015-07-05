@@ -10,6 +10,7 @@ using EasyTourney.Models;
 using EasyTourney.Bll;
 using EasyTourney.ViewModels;
 using EasyTourney.Filters;
+using EasyTourney.Common;
 
 namespace EasyTourney.Controllers
 {
@@ -198,6 +199,52 @@ namespace EasyTourney.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult eventMessages(Guid eventGuid)
+        {
+            ViewBag.EventGuid = eventGuid;
+            return View("_EventMessages", eventBll.getMessagesByEvent(eventGuid));
+        }
+
+        //[HttpPost]
+        //public ActionResult eventMessages(Guid eventGuid)
+        //{
+        //    ViewBag.EventGuid = eventGuid;
+        //    return View("_EventMessages", eventBll.getMessagesByEvent(eventGuid));
+        //}
+
+        public ActionResult createComment(Guid? eventGuid)
+        {
+            ViewBag.EventGuid = eventGuid;
+            return View("_EventCommentForm", new SaveEventMessageModel());
+        }
+
+        [HttpPost]
+        public ActionResult saveEventMessages(SaveEventMessageModel eventMessageModel)
+        {
+            if (ModelState.IsValid)
+            {
+                tblUser user = (tblUser)Session["USER"];
+
+                tblMessage message = new tblMessage();
+                Guid messageId = Guid.NewGuid();
+                message.Id = messageId;
+                message.Content = eventMessageModel.message.Content;
+                message.CategoryId = (int)Enums.messageType.FindTeam;
+                message.UserId = user.GUID;
+                db.tblMessage.Add(message);
+
+                tblEventMessages eventMessage = new tblEventMessages();
+                eventMessage.EventId = eventMessageModel.relatedEvent.GUID;
+                eventMessage.MessageId = messageId;
+                db.tblEventMessages.Add(eventMessage);
+
+                db.SaveChanges();
+                return RedirectToAction("Home", "Event", new { id = eventMessage.EventId});
+            }
+            
+            return View("Index", "Home");
         }
     }
 }

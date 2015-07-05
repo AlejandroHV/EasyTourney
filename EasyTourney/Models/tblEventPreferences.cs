@@ -18,7 +18,7 @@ namespace EasyTourney.Models
         public Nullable<System.Guid> PreferenceId { get; set; }
         public Nullable<System.Guid> EventId { get; set; }
     
-        public virtual tblEvent tblEvent { get; set; }
         public virtual tblUser tblUser { get; set; }
+        public virtual tblEvent tblEvent { get; set; }
     }
 }

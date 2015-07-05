@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EasyTourney.ViewModels.EventMessagesModel>
+
+@{
+    ViewBag.Title = "_EventMessages";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Comment
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null && Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.user != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.user.FirstName)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.message)
+                </td>
+
+            </tr>
+        }
+    }
+</table>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a value="Comment" class="btn btn-primary btn-lg" href="@Url.Action("CreateComment", "Event", new { eventGuid = @ViewBag.EventGuid })">Comment</a>
+    </div>
+</div>

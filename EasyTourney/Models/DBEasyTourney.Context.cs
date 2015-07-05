@@ -26,14 +26,14 @@ namespace EasyTourney.Models
         }
     
         public virtual DbSet<tblCategory> tblCategory { get; set; }
-        public virtual DbSet<tblEvent> tblEvent { get; set; }
-        public virtual DbSet<tblEventMessages> tblEventMessages { get; set; }
         public virtual DbSet<tblEventPreferences> tblEventPreferences { get; set; }
-        public virtual DbSet<tblMessage> tblMessage { get; set; }
         public virtual DbSet<tblPreference> tblPreference { get; set; }
         public virtual DbSet<tblRol> tblRol { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
         public virtual DbSet<tblUserEvents> tblUserEvents { get; set; }
         public virtual DbSet<tblUserPreference> tblUserPreference { get; set; }
+        public virtual DbSet<tblEvent> tblEvent { get; set; }
+        public virtual DbSet<tblEventMessages> tblEventMessages { get; set; }
+        public virtual DbSet<tblMessage> tblMessage { get; set; }
     }
 }
