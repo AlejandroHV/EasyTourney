@@ -141,6 +141,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBEasyTourney.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\UserLoginObject.cs" />
     <Compile Include="Models\tblCategory.cs">
       <DependentUpon>DBEasyTourney.tt</DependentUpon>
     </Compile>
@@ -416,6 +417,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Shared\_loginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ namespace EasyTourney.Models
     [MetadataType(typeof(tblUserMetaData))]
     public partial class tblUser
     {
+        public bool IsEventAdmin { get; set; }
     }
 
     public class tblUserMetaData
@@ -36,6 +37,9 @@ namespace EasyTourney.Models
         [MaxLength(100)]
         [Required]
         public string Email { get; set; }
+
+        [Display(Name="Rol")]
+        public Nullable<System.Guid> RolId { get; set; }
 
 
         [DataType(DataType.PhoneNumber)]
