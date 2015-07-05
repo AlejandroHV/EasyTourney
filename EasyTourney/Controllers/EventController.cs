@@ -164,6 +164,14 @@ namespace EasyTourney.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Home(Guid id)
+        {
+            EventIndex eventInfo = new EventIndex();
+            eventInfo.eventInfo = db.tblEvent.Find(id);
+            eventInfo.eventParticipants = db.tblUserEvents.Where(e => e.tblEvent.GUID == id && !e.tblUser.tblRol.Name.Equals("Manager")).ToList();
+            return View(eventInfo);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
