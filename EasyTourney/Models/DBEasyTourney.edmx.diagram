@@ -6,25 +6,25 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e1cb02f60ae54c698b8270feb16a2ef7" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblCategory" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEasyTourneyModel.tblEvent" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEasyTourneyModel.tblEventMessages" Width="1.5" PointX="12.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblEventPreferences" Width="1.5" PointX="7.125" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEasyTourneyModel.tblMessage" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblPreference" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblRol" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblUser" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblUserEvents" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEasyTourneyModel.tblUserPreference" Width="1.5" PointX="0.875" PointY="7.375" IsExpanded="true" />
-        <AssociationConnector Association="DBEasyTourneyModel.FK_Message_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEasyTourneyModel.FK_EventMessages_Event" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEasyTourneyModel.FK_EventPreferencies_Event" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEasyTourneyModel.FK_UserEvents_Event" ManuallyRouted="false" />
-        <AssociationConnector Association="DBEasyTourneyModel.FK_EventMessages_Message" ManuallyRouted="false" />
         <AssociationConnector Association="DBEasyTourneyModel.FK_EventPreferencies_Preference" ManuallyRouted="false" />
         <AssociationConnector Association="DBEasyTourneyModel.FK_UserPreference_Preference" ManuallyRouted="false" />
         <AssociationConnector Association="DBEasyTourneyModel.FK_User_Rol" ManuallyRouted="false" />
         <AssociationConnector Association="DBEasyTourneyModel.FK_UserEvents_User" ManuallyRouted="false" />
         <AssociationConnector Association="DBEasyTourneyModel.FK_UserPreference_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBEasyTourneyModel.tblEvent" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DBEasyTourneyModel.tblEventMessages" Width="1.5" PointX="12.25" PointY="2.125" />
+        <EntityTypeShape EntityType="DBEasyTourneyModel.tblMessage" Width="1.5" PointX="10" PointY="3" />
+        <AssociationConnector Association="DBEasyTourneyModel.FK_Message_Category" />
+        <AssociationConnector Association="DBEasyTourneyModel.FK_EventMessages_Event" />
+        <AssociationConnector Association="DBEasyTourneyModel.FK_EventPreferencies_Event" />
+        <AssociationConnector Association="DBEasyTourneyModel.FK_UserEvents_Event" />
+        <AssociationConnector Association="DBEasyTourneyModel.FK_EventMessages_Message" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

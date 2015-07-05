@@ -70,9 +70,14 @@
     else
     {
         <p>Non participants subscribed</p>
-    }
+    }         
 
         @Html.Hidden("eventGuid" , Model.eventInfo.GUID);
+        <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a value="Comment" class="btn btn-primary btn-lg" href="@Url.Action("EventMessages", "Event", new { eventGuid = Model.eventInfo.GUID})">Comment</a>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Partcipate" class="btn btn-primary btn-lg" />

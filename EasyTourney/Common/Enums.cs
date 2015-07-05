@@ -11,5 +11,11 @@ namespace EasyTourney.Common
         {
             G
         }
+
+        public enum messageType
+        {
+            General = 1,
+            FindTeam = 2
+        }
     }
 }

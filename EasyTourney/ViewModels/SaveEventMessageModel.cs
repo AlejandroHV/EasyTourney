@@ -6,13 +6,9 @@ using EasyTourney.Models;
 
 namespace EasyTourney.ViewModels
 {
-    public class EventIndex
+    public class SaveEventMessageModel
     {
-
-        public tblEvent eventInfo { get; set; }
-
-
-        public List<tblUserEvents> eventParticipants { get; set; }
-
+        public tblEvent relatedEvent { get; set; }
+        public tblMessage message { get; set; }
     }
 }
