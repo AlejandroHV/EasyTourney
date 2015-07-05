@@ -52,7 +52,14 @@ namespace EasyTourney.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GUID,Name,Description,StarDate,CreatedDate,Price,City,Country,MaxParticipants,IsActive")] tblEvent tblEvent)
         {
-            if (ModelState.IsValid)
+            tblUser user = null;
+
+            if (Session["USER"] != null)
+            {
+                user = (EasyTourney.Models.tblUser)Session["USER"];
+            }
+
+            if (ModelState.IsValid && user != null)
             {
                 Guid eventGuid = Guid.NewGuid();
                 tblEvent.GUID = eventGuid;
@@ -61,7 +68,7 @@ namespace EasyTourney.Controllers
                 tblUserEvents userEvent = new tblUserEvents();
                 userEvent.GUID = Guid.NewGuid();
                 userEvent.EventId = eventGuid;
-                userEvent.UserId = Guid.NewGuid();
+                userEvent.UserId = user.GUID;
                 db.tblUserEvents.Add(userEvent);
 
                 db.SaveChanges();

@@ -88,12 +88,30 @@ namespace EasyTourney.Models
         [Display(Name = "Created date")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
 
-
+        [Required]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Price")]
         public Nullable<decimal> Price { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public Nullable<int> MaxParticipants { get; set; }
-        public Nullable<bool> IsActive { get; set; }
 
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "City")]
+        [StringLength(50, ErrorMessage = "City cannot be longer than 50 characters.")]
+        public string City { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Country")]
+        [StringLength(50, ErrorMessage = "Country cannot be longer than 50 characters.")]
+        public string Country { get; set; }
+
+        [Required]
+        [Display(Name = "Max Participants")]
+        [Range(1, 200)]
+        public Nullable<int> MaxParticipants { get; set; }
+
+        [Required]
+        [Display(Name = "Is Active")]
+        public Nullable<bool> IsActive { get; set; }
     }
 }
