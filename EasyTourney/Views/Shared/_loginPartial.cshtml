@@ -1,7 +1,7 @@
 ﻿@if (Session["USER"] != null)
 {
     EasyTourney.Models.tblUser  User = (EasyTourney.Models.tblUser)Session["USER"];
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" >
         <li>@Html.ActionLink(User.FirstName, "Edit", "User", new { id = User.GUID },null)</li>
       
         <li>@Html.ActionLink("Log Off", "LogOff", "User")</li>

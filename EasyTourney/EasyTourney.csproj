@@ -338,6 +338,15 @@
     <Content Include="Content\BaseTemplate\images\slider\img2.png" />
     <Content Include="Content\BaseTemplate\images\slider\img3.png" />
     <Content Include="Content\BaseTemplate\images\slider_one.jpg" />
+    <Content Include="Content\BaseTemplate\images\sport\bastketman.png" />
+    <Content Include="Content\BaseTemplate\images\sport\cup.png" />
+    <Content Include="Content\BaseTemplate\images\sport\horizon.jpg" />
+    <Content Include="Content\BaseTemplate\images\sport\LOGOP.png" />
+    <Content Include="Content\BaseTemplate\images\sport\LongWalk.png" />
+    <Content Include="Content\BaseTemplate\images\sport\Run.jpg" />
+    <Content Include="Content\BaseTemplate\images\sport\Team.jpg" />
+    <Content Include="Content\BaseTemplate\images\sport\Teninisplayer.jpg" />
+    <Content Include="Content\BaseTemplate\images\sport\Trofeo.png" />
     <Content Include="Content\BaseTemplate\images\tab1.png" />
     <Content Include="Content\BaseTemplate\images\tab2.png" />
     <Content Include="Content\BaseTemplate\images\team-member.jpg" />
@@ -433,6 +442,7 @@
     <Content Include="Views\Event\RegisterForEvent.cshtml" />
     <Content Include="Views\Event\Home.cshtml" />
     <Content Include="Views\Event\_participantListPartial.cshtml" />
+    <Content Include="Views\Event\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
