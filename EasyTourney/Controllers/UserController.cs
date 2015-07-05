@@ -15,13 +15,17 @@ namespace EasyTourney.Controllers
     {
         private DBEasyTourneyEntities db = new DBEasyTourneyEntities();
 
-        private DBEasyTourneyEntities DBContext { get {
-            if (db == null)
+        private DBEasyTourneyEntities DBContext
+        {
+            get
             {
-                db = new DBEasyTourneyEntities();
+                if (db == null)
+                {
+                    db = new DBEasyTourneyEntities();
+                }
+                return db;
             }
-            return db;
-        } }
+        }
 
         // GET: User
         public ActionResult Index()
@@ -49,7 +53,12 @@ namespace EasyTourney.Controllers
         public ActionResult Create()
         {
             ViewBag.RolId = new SelectList(DBContext.tblRol, "Id", "Name");
-            return View();
+            tblUser user = new tblUser();
+            user.AllPreferences = db.tblPreference.ToList();
+            user.SelectedPreferences = new List<tblPreference>();
+            user.PostedReference = new PostedPreference();
+            user.PostedReference.preferenceId = new string[0];
+            return View(user);
         }
 
         // POST: User/Create
@@ -57,32 +66,43 @@ namespace EasyTourney.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,Phone,City,Country,IsEventAdmin,Pass")] tblUser tblUser)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,Phone,City,Country,IsEventAdmin,Pass,Preferences,SelectedPreferences,PostedReference")]  tblUser tblUser)
         {
             if (ModelState.IsValid)
             {
                 List<tblRol> rolList = DBContext.tblRol.ToList();
-
+                tblUser.GUID = Guid.NewGuid();
                 if (tblUser.IsEventAdmin)
                 {
                     tblRol managerRol = rolList.Where(rol => rol.Name == "Manager").FirstOrDefault();
                     tblUser.RolId = managerRol.Id;
                 }
-                else {
+                else
+                {
                     tblRol participantRol = rolList.Where(rol => rol.Name == "Participant").FirstOrDefault();
                     tblUser.RolId = participantRol.Id;
-                }
+                    foreach (var item in tblUser.PostedReference.preferenceId)
+                    {
+                        Guid preferenceGuid = Guid.NewGuid();
+                        Guid.TryParse(item, out preferenceGuid);
+                        tblUserPreference userPreference = new tblUserPreference();
+                        userPreference.GUID = Guid.NewGuid();
+                        userPreference.PreferenceId = preferenceGuid;
+                        userPreference.UserId = tblUser.GUID;
+                        DBContext.Entry<tblUserPreference>(userPreference).State = EntityState.Added;
+                        DBContext.tblUserPreference.Add(userPreference);
+                    }
 
-                tblUser.GUID = Guid.NewGuid();
+                }
                 DBContext.tblUser.Add(tblUser);
                 DBContext.SaveChanges();
-                
+
                 return RedirectToAction("Login");
             }
 
             ViewBag.RolId = new SelectList(DBContext.tblRol, "Id", "Name", tblUser.RolId);
 
-            
+
             return View(tblUser);
         }
 
@@ -94,6 +114,8 @@ namespace EasyTourney.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tblUser tblUser = DBContext.tblUser.Find(id);
+            tblUser.SelectedPreferences = DBContext.tblUserPreference.Where(x=>x.UserId == tblUser.GUID).Select(p=>p.tblPreference).ToList();
+
             if (tblUser == null)
             {
                 return HttpNotFound();
@@ -173,9 +195,9 @@ namespace EasyTourney.Controllers
                     ViewBag.Error = "Wrong Credentials...";
                     return View();
                 }
-                Session.Add("USER",loggedUser);
+                Session.Add("USER", loggedUser);
                 return RedirectToAction("Index", "Home");
-                
+
             }
             else
             {
@@ -183,20 +205,20 @@ namespace EasyTourney.Controllers
                 return View();
             }
 
-            
+
         }
 
-        
-        
+
+
         public ActionResult LogOff()
         {
-            if ( Session["USER"] != null)
+            if (Session["USER"] != null)
             {
                 Session.Remove("USER");
             }
 
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
 

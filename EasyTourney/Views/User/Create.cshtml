@@ -1,5 +1,7 @@
 ﻿@model EasyTourney.Models.tblUser
 
+
+
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,10 +10,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />
@@ -67,7 +69,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pass, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control" , type="password"} })
+                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control", type = "password" } })
                 @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,12 +83,14 @@
         </div>
 
         <div class="container">
-            <h3>Select </h3>
+            <h3>Select your preferences</h3>
+            @Html.CheckBoxListFor(model => model.PostedReference.preferenceId,
+            model => model.AllPreferences,
+            x => x.Id,
+            x => x.Name,
+         model => model.SelectedPreferences,MvcCheckBoxList.Model.Position.Horizontal)
+        </div>
 
-        </div>
-        <div class="form-group">
-            
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -112,8 +116,7 @@
 
 <script type="text/javascript">
 
-    function SuccesfullyLogin()
-    {
+    function SuccesfullyLogin() {
         alert("Cuenta");
 
     }
