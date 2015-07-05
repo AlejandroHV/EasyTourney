@@ -22,5 +22,12 @@ namespace EasyTourney.Bll
 
             return false;
         }
+
+        public static bool activeSession()
+        {
+            bool activeSession = HttpContext.Current.Session["USER"] != null ? true : false;
+           
+            return activeSession;
+        }
     }
 }

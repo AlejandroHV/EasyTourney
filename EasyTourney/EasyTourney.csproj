@@ -126,6 +126,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\IsAdminFilterAttribute.cs" />
+    <Compile Include="Filters\IsParticipantFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
