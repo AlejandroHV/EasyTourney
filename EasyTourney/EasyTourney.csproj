@@ -427,8 +427,8 @@
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Event\RegisterForEvent.cshtml" />
-    <Content Include="Views\Event\_participantListPartial.cshtml" />
     <Content Include="Views\Event\Home.cshtml" />
+    <Content Include="Views\Event\_participantListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
