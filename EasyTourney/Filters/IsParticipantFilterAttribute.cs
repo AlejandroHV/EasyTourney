@@ -12,7 +12,7 @@ namespace EasyTourney.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!AuthBll.isAdmin())
+            if (AuthBll.isParticipant())
             {
                 return;
             }

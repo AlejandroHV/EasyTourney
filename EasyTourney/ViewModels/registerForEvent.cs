@@ -8,7 +8,7 @@ namespace EasyTourney.ViewModels
 {
     public class RegisterForEvent
     {
-        public Guid userGuid { get; set; }
+        public Guid? userGuid { get; set; }
         public tblEvent selectedEvent { get; set; }
     }
 }

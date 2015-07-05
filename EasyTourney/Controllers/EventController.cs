@@ -150,7 +150,7 @@ namespace EasyTourney.Controllers
         }
 
         [IsParticipantFilter]
-        public ActionResult RegisterForEvent(Guid eventGuid)
+        public ActionResult RegisterForEvent(Guid? eventGuid)
         {
             tblUser user = (tblUser)Session["USER"];
 
@@ -166,13 +166,15 @@ namespace EasyTourney.Controllers
 
         [HttpPost, ActionName("RegisterForEvent")]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterForEventConfirmed(RegisterForEvent model)
+        public ActionResult RegisterForEventConfirmed(Guid eventGuid)
         {
             if(ModelState.IsValid)
             {
+                tblUser user = (tblUser)Session["USER"];
                 tblUserEvents userEvent = new tblUserEvents();
-                userEvent.UserId = model.userGuid;
-                userEvent.EventId = model.selectedEvent.GUID;
+                userEvent.UserId = user.GUID;
+                userEvent.EventId = eventGuid;
+                userEvent.GUID = Guid.NewGuid();
                 db.tblUserEvents.Add(userEvent);
 
                 db.SaveChanges();
