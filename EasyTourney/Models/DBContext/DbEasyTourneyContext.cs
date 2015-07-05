@@ -9,8 +9,19 @@ namespace EasyTourney.Models
     [MetadataType(typeof(tblUserMetaData))]
     public partial class tblUser
     {
+
+        
         public bool IsEventAdmin { get; set; }
-        public List<tblPreference> Preferences { get; set; }
+        public IEnumerable<tblPreference> AllPreferences { get; set; }
+        public IEnumerable<tblPreference> SelectedPreferences { get; set; }
+        public PostedPreference PostedReference { get; set; }
+    }
+
+   
+
+    public class PostedPreference {
+
+        public string[] preferenceId { get; set; }
     }
 
     public class tblUserMetaData

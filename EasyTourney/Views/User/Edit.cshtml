@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />
@@ -81,13 +81,28 @@
                 @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="col-lg-5">
+            @if (Model.SelectedPreferences != null && Model.SelectedPreferences.Count() > 0)
+            {
+                <h3>Preferences</h3>
 
+
+                foreach (var item in Model.SelectedPreferences)
+                {
+                    <div class="btn btn-primary">
+                        <p>@item.Name</p>
+                    </div>
+                }
+
+            }
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
+
 }
 
 <div>
